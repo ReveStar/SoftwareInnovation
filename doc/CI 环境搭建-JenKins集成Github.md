@@ -52,5 +52,5 @@ maven 构建任务需要对 maven 进行配置， 首先需要在 Jenkins 服务
 在构建成功后，可以执行不同的操作，我们可以按照自身需求配置不同的操作
 ![miss](./img/CI_build/build-after.jpg "构建后操作配置")
 
-##参考
+## 参考
 https://github.com/muyinchen/woker/blob/master/%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%90%AD%E5%BB%BAJenkins+Github%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E7%8E%AF%E5%A2%83.md
