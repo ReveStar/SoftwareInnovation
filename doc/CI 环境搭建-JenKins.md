@@ -45,6 +45,10 @@ Jenkins 在首次运行时，会生成安全令牌，并将其打印在控制台
 至此 Jenkins 安装完毕。
 ![图片丢失](./img/CI_build/jenkins_home.jpg "Jenkins主页")  
 
+## 参考
+https://www.w3cschool.cn/jenkins/jenkins-79ex28jh.html  
+https://www.jianshu.com/p/180fb11a5b96
+
 
 
 
