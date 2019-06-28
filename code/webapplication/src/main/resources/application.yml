@@ -1,0 +1,11 @@
+spring:
+  application:
+    name:  book-manage
+
+server:
+  port: 8889
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://202.120.40.8:30456/eureka/ #eureka服务注册地址

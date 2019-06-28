@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.software</groupId>
+    <artifactId>eurakedemo</artifactId>
+    <version>0.0.1</version>
+    <name>eurakedemo</name>
+    <packaging>jar</packaging>
+    <description>eurake-demo</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <docker.push.registry>10.0.0.54:30451/library</docker.push.registry>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.30.0</version>
+                <executions>
+                    <execution>
+                        <id>docker-build-push</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <pushRegistry>${docker.push.registry}</pushRegistry>
+                    <images>
+                        <image>
+                            <alias>service</alias>
+                            <name>${docker.push.registry}/${project.name}</name>
+                            <build>
+                                <from>java:8</from>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                                <ports>
+                                    <port>8888</port>
+                                </ports>
+                                <entryPoint>java -jar /app/${project.build.finalName}.jar</entryPoint>
+                                <assembly>
+                                    <name>${project.build.finalName}/${project.build.finalName}.jar</name>
+                                    <mode>dir</mode>
+                                    <targetDir>/app</targetDir>
+                                    <descriptorRef>artifact</descriptorRef>
+<!--                                    <descriptorRef>artifact-with-dependencies</descriptorRef>-->
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
+                    <authConfig>
+                        <push>
+                            <username>admin</username>
+                            <password>{RruZvZkg3/MH9dE418pZ8VJjh6E/q/yR4y3znZIHRxc=}</password>
+                        </push>
+                    </authConfig>
+                </configuration>
+
+                <dependencies>
+                    <!--该插件需要这个依赖-->
+                    <dependency>
+                        <groupId>commons-codec</groupId>
+                        <artifactId>commons-codec</artifactId>
+                        <version>1.11</version>
+                    </dependency>
+                </dependencies>
+
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+</project>
